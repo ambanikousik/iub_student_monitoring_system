@@ -43,7 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          provider.query();
+          // provider.query();
+
+          provider.getCourseWisePLO('1810281');
           _incrementCounter();
         },
         tooltip: 'Increment',

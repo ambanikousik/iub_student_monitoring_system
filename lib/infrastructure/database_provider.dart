@@ -76,7 +76,7 @@ class DatabaseProvider extends IDatabaseProvider {
   }
 
   @override
-  void getCourseWisePLO(String studentId) {
+  Future<void> getCourseWisePLO(String studentId) async {
     final String query = '''
             SELECT DISTINCT co.course_id, co.coNo, p.ploNo, (PLO / TotalComark * 100) AS PLOpercentage
                 FROM mainapp_plo_t p, mainapp_co_t co, (
@@ -98,7 +98,12 @@ class DatabaseProvider extends IDatabaseProvider {
                 AND p.ploNo = ploPer.plo_id
                 AND co.course_id = ploPer.course_id;
         ''';
-    Logger().i(query);
+    // Logger().i(query);
+
+    final List<Map<String, Object?>> queryResult =
+        await database!.rawQuery(query);
+
+    Logger().i(queryResult);
   }
 
   @override

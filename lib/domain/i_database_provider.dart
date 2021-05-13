@@ -15,7 +15,7 @@ abstract class IDatabaseProvider {
 
   void getStudentWisePLO(String studentId);
   void getDepartmentWisePLO(String deptId);
-  void getCourseWisePLO(String studentId);
+  Future<void> getCourseWisePLO(String studentId);
   void getCourseWisePLOChart(String studentId);
   void getStudentProgressView(String studentId, String year);
   void getSemesterWiseStudentProgress(String semester, String year);
