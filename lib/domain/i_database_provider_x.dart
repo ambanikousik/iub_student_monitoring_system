@@ -3,7 +3,7 @@ import 'package:iub_student_monitoring_system/domain/failure/failure.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 abstract class IDatabaseProvider {
-  IDatabaseProvider();
+  // IDatabaseProvider();
 
   String get dbName;
 

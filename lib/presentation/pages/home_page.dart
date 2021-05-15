@@ -1,55 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iub_student_monitoring_system/domain/i_database_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:iub_student_monitoring_system/application/auth/auth_bloc.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final IDatabaseProvider provider = context.read<IDatabaseProvider>();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.error.isNotEmpty) {
+          EasyLoading.showError(state.error);
+        } else if (state.loading) {
+          EasyLoading.show(status: 'loading...');
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Login Page'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // provider.query();
-
-          provider.getCourseWisePLO('1810281');
-          _incrementCounter();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              Text(
+                'counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            const userName = '1810281';
+            const password = '579243';
+            BlocProvider.of<AuthBloc>(context)
+                .add(const Login(userName, password));
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
