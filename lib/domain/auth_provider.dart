@@ -13,9 +13,16 @@ class AuthProvider {
           Map<String,
               Object?>> userResponse = await db.database!.rawQuery(
           "SELECT * FROM auth_user WHERE username = '$user' and password = '$password'");
-      final List<Map<String, Object?>> res = await db.database!.rawQuery(
-          "SELECT * FROM auth_user WHERE username = '$user' and password = '$password'");
       db.user = User.fromJson(userResponse[0]);
+
+      final List<Map<String, Object?>> res =
+          await db.database!.rawQuery("""SELECT type.name FROM auth_group type,
+auth_user_groups  auth
+  WHERE  auth.user_id = ${db.user!.id}
+  AND auth.group_id = type.id;""");
+      final String rawType = res[0]['name']! as String;
+      db.userType = UserType.values.firstWhere(
+          (type) => type.toString().toUpperCase() == rawType.toUpperCase());
       Logger().i(db.user);
       return right(unit);
     } catch (e) {
