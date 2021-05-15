@@ -14,18 +14,23 @@ class AuthProvider {
               Object?>> userResponse = await db.database!.rawQuery(
           "SELECT * FROM auth_user WHERE username = '$user' and password = '$password'");
       db.user = User.fromJson(userResponse[0]);
+      Logger().i(db.user);
 
       final List<Map<String, Object?>> res =
           await db.database!.rawQuery("""SELECT type.name FROM auth_group type,
-auth_user_groups  auth
-  WHERE  auth.user_id = ${db.user!.id}
-  AND auth.group_id = type.id;""");
+                                      auth_user_groups  auth
+                                    WHERE  auth.user_id = ${db.user!.id}
+                                  AND auth.group_id = type.id;""");
+
       final String rawType = res[0]['name']! as String;
-      db.userType = UserType.values.firstWhere(
-          (type) => type.toString().toUpperCase() == rawType.toUpperCase());
-      Logger().i(db.user);
+
+      final UserType type = UserType.values
+          .firstWhere((type) => type.toUpperCase() == rawType.toUpperCase());
+      Logger().i(type);
+      db.userType = type;
       return right(unit);
     } catch (e) {
+      Logger().i(e);
       return left(const Failure('Invalid credential'));
     }
   }

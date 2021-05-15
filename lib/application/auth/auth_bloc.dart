@@ -19,7 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthEvent event,
   ) async* {
     yield* event.map(login: (e) async* {
-      yield state.copyWith(loading: false);
+      yield state.copyWith(loading: true);
       final Either<Failure, Unit> loginResult =
           await authProvider.login(e.userName, e.password);
 
@@ -27,6 +27,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (l) => state.copyWith(loading: false, error: l.error),
           (r) => state.copyWith(loading: false, isLoggedIn: true));
     });
-    // TODO: implement mapEventToState
   }
 }

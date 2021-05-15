@@ -4,9 +4,16 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+
   errors:
     missing_required_param: error
     missing_return: error
     must_be_immutable: error
+
+
+linter:
+  rules: 
+    leading_newlines_in_multiline_strings: false    
+  
 
 

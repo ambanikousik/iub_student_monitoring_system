@@ -8,6 +8,7 @@ import 'package:iub_student_monitoring_system/presentation/Widgets/app_button.da
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_text.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_textfield.dart';
 import 'package:iub_student_monitoring_system/presentation/pages/home_page.dart';
+import 'package:logger/logger.dart';
 
 class LoginPage extends HookWidget {
   @override
@@ -23,7 +24,10 @@ class LoginPage extends HookWidget {
       listener: (context, state) {
         if (state.error.isNotEmpty) {
           EasyLoading.showError(state.error);
-        } else if (state.isLoggedIn) {
+        }
+
+        if (state.isLoggedIn) {
+          Logger().i('next');
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyHomePage()));
         }

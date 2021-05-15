@@ -7,7 +7,22 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:path/path.dart';
 
-enum UserType { student, faculty, authority }
+enum UserType { student, faculty, management }
+
+extension UserTypeExt on UserType {
+  String toUpperCase() {
+    switch (this) {
+      case UserType.student:
+        return 'STUDENT';
+
+      case UserType.faculty:
+        return 'FACULTY';
+
+      case UserType.management:
+        return 'HIGHER MANAGEMENT';
+    }
+  }
+}
 
 class DBProvider {
   DBProvider._();
