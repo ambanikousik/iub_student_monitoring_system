@@ -1,4 +1,4 @@
-import 'package:iub_student_monitoring_system/domain/i_student_info_provider.dart';
+import 'package:iub_student_monitoring_system/domain/i_student_provider.dart';
 
 class StudentProvider extends IStudentProvider {
   StudentProvider._();
