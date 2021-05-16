@@ -4,10 +4,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iub_student_monitoring_system/application/auth/auth_bloc.dart';
+import 'package:iub_student_monitoring_system/application/student/student_bloc.dart';
+import 'package:iub_student_monitoring_system/infrastructure/database_provider.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/app_button.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_text.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_textfield.dart';
-import 'package:iub_student_monitoring_system/presentation/pages/home_page.dart';
+import 'package:iub_student_monitoring_system/presentation/pages/students_page.dart';
 import 'package:logger/logger.dart';
 
 class LoginPage extends HookWidget {
@@ -28,8 +30,15 @@ class LoginPage extends HookWidget {
 
         if (state.isLoggedIn) {
           Logger().i('next');
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MyHomePage()));
+          if (DBProvider.instance().userType == UserType.student) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                          create: (context) => StudentBloc(),
+                          child: StudentsPage(),
+                        )));
+          }
         }
       },
       child: Scaffold(
