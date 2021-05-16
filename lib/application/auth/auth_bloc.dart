@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:iub_student_monitoring_system/domain/failure/failure.dart';
-import 'package:iub_student_monitoring_system/domain/auth_provider.dart';
+import 'package:iub_student_monitoring_system/infrastructure/auth_provider.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

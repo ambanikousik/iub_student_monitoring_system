@@ -5,7 +5,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iub_student_monitoring_system/application/auth/auth_bloc.dart';
 import 'package:iub_student_monitoring_system/application/student/student_bloc.dart';
+import 'package:iub_student_monitoring_system/domain/i_student_provider.dart';
 import 'package:iub_student_monitoring_system/infrastructure/database_provider.dart';
+import 'package:iub_student_monitoring_system/infrastructure/student_provider.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/app_button.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_text.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_textfield.dart';
@@ -34,9 +36,14 @@ class LoginPage extends HookWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                          create: (context) => StudentBloc(),
-                          child: StudentsPage(),
+                    builder: (context) => RepositoryProvider<IStudentProvider>(
+                          create: (context) => StudentProvider(),
+                          child: BlocProvider(
+                            create: (context) =>
+                                StudentBloc(context.read<IStudentProvider>())
+                                  ..add(const LoadStudentData()),
+                            child: StudentsPage(),
+                          ),
                         )));
           }
         }

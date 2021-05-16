@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:iub_student_monitoring_system/domain/plo/plo.dart';
 import 'package:iub_student_monitoring_system/domain/user/user.dart';
 import 'package:logger/logger.dart';
 import 'package:sqflite/sqflite.dart';
@@ -29,6 +30,7 @@ class DBProvider {
   static final DBProvider _db = DBProvider._();
 
   Database? database;
+  List<Plo> ploList = [];
 
   User? user;
   UserType? userType;

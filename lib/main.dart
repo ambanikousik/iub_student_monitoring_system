@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iub_student_monitoring_system/application/auth/auth_bloc.dart';
-import 'package:iub_student_monitoring_system/domain/auth_provider.dart';
+import 'package:iub_student_monitoring_system/infrastructure/auth_provider.dart';
 import 'package:iub_student_monitoring_system/infrastructure/database_provider.dart';
 import 'package:iub_student_monitoring_system/presentation/pages/login/login_page.dart';
 

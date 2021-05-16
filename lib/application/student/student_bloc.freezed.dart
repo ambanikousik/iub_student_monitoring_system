@@ -152,9 +152,10 @@ abstract class LoadStudentData implements StudentEvent {
 class _$StudentStateTearOff {
   const _$StudentStateTearOff();
 
-  _StudentState call(
-      int ploAchieved, int ploAttempted, int lowestPlo, int successRate) {
+  _StudentState call(User user, int ploAchieved, int ploAttempted,
+      String lowestPlo, double successRate) {
     return _StudentState(
+      user,
       ploAchieved,
       ploAttempted,
       lowestPlo,
@@ -168,10 +169,11 @@ const $StudentState = _$StudentStateTearOff();
 
 /// @nodoc
 mixin _$StudentState {
+  User get user => throw _privateConstructorUsedError;
   int get ploAchieved => throw _privateConstructorUsedError;
   int get ploAttempted => throw _privateConstructorUsedError;
-  int get lowestPlo => throw _privateConstructorUsedError;
-  int get successRate => throw _privateConstructorUsedError;
+  String get lowestPlo => throw _privateConstructorUsedError;
+  double get successRate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StudentStateCopyWith<StudentState> get copyWith =>
@@ -184,7 +186,13 @@ abstract class $StudentStateCopyWith<$Res> {
           StudentState value, $Res Function(StudentState) then) =
       _$StudentStateCopyWithImpl<$Res>;
   $Res call(
-      {int ploAchieved, int ploAttempted, int lowestPlo, int successRate});
+      {User user,
+      int ploAchieved,
+      int ploAttempted,
+      String lowestPlo,
+      double successRate});
+
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -197,12 +205,17 @@ class _$StudentStateCopyWithImpl<$Res> implements $StudentStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? user = freezed,
     Object? ploAchieved = freezed,
     Object? ploAttempted = freezed,
     Object? lowestPlo = freezed,
     Object? successRate = freezed,
   }) {
     return _then(_value.copyWith(
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
       ploAchieved: ploAchieved == freezed
           ? _value.ploAchieved
           : ploAchieved // ignore: cast_nullable_to_non_nullable
@@ -214,12 +227,19 @@ class _$StudentStateCopyWithImpl<$Res> implements $StudentStateCopyWith<$Res> {
       lowestPlo: lowestPlo == freezed
           ? _value.lowestPlo
           : lowestPlo // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       successRate: successRate == freezed
           ? _value.successRate
           : successRate // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
+  }
+
+  @override
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -231,7 +251,14 @@ abstract class _$StudentStateCopyWith<$Res>
       __$StudentStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int ploAchieved, int ploAttempted, int lowestPlo, int successRate});
+      {User user,
+      int ploAchieved,
+      int ploAttempted,
+      String lowestPlo,
+      double successRate});
+
+  @override
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -246,12 +273,17 @@ class __$StudentStateCopyWithImpl<$Res> extends _$StudentStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? user = freezed,
     Object? ploAchieved = freezed,
     Object? ploAttempted = freezed,
     Object? lowestPlo = freezed,
     Object? successRate = freezed,
   }) {
     return _then(_StudentState(
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
       ploAchieved == freezed
           ? _value.ploAchieved
           : ploAchieved // ignore: cast_nullable_to_non_nullable
@@ -263,11 +295,11 @@ class __$StudentStateCopyWithImpl<$Res> extends _$StudentStateCopyWithImpl<$Res>
       lowestPlo == freezed
           ? _value.lowestPlo
           : lowestPlo // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       successRate == freezed
           ? _value.successRate
           : successRate // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 }
@@ -275,27 +307,31 @@ class __$StudentStateCopyWithImpl<$Res> extends _$StudentStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_StudentState implements _StudentState {
-  const _$_StudentState(
-      this.ploAchieved, this.ploAttempted, this.lowestPlo, this.successRate);
+  const _$_StudentState(this.user, this.ploAchieved, this.ploAttempted,
+      this.lowestPlo, this.successRate);
 
+  @override
+  final User user;
   @override
   final int ploAchieved;
   @override
   final int ploAttempted;
   @override
-  final int lowestPlo;
+  final String lowestPlo;
   @override
-  final int successRate;
+  final double successRate;
 
   @override
   String toString() {
-    return 'StudentState(ploAchieved: $ploAchieved, ploAttempted: $ploAttempted, lowestPlo: $lowestPlo, successRate: $successRate)';
+    return 'StudentState(user: $user, ploAchieved: $ploAchieved, ploAttempted: $ploAttempted, lowestPlo: $lowestPlo, successRate: $successRate)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _StudentState &&
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.ploAchieved, ploAchieved) ||
                 const DeepCollectionEquality()
                     .equals(other.ploAchieved, ploAchieved)) &&
@@ -313,6 +349,7 @@ class _$_StudentState implements _StudentState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(ploAchieved) ^
       const DeepCollectionEquality().hash(ploAttempted) ^
       const DeepCollectionEquality().hash(lowestPlo) ^
@@ -325,18 +362,19 @@ class _$_StudentState implements _StudentState {
 }
 
 abstract class _StudentState implements StudentState {
-  const factory _StudentState(
-          int ploAchieved, int ploAttempted, int lowestPlo, int successRate) =
-      _$_StudentState;
+  const factory _StudentState(User user, int ploAchieved, int ploAttempted,
+      String lowestPlo, double successRate) = _$_StudentState;
 
+  @override
+  User get user => throw _privateConstructorUsedError;
   @override
   int get ploAchieved => throw _privateConstructorUsedError;
   @override
   int get ploAttempted => throw _privateConstructorUsedError;
   @override
-  int get lowestPlo => throw _privateConstructorUsedError;
+  String get lowestPlo => throw _privateConstructorUsedError;
   @override
-  int get successRate => throw _privateConstructorUsedError;
+  double get successRate => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$StudentStateCopyWith<_StudentState> get copyWith =>
