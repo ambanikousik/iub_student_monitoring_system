@@ -39,7 +39,6 @@ class StudentProvider extends IStudentProvider {
         lowestRate = currentRate;
         lowestPlo = plo;
       }
-      Logger().i(lowestRate);
     }
 
     return lowestPlo;
@@ -141,7 +140,37 @@ class StudentProvider extends IStudentProvider {
   }
 
   @override
-  void studentWisePLO() {
-    // TODO: implement studentWisePLO
+  Future<Map<String, double>> studentWisePLO() async {
+    final Map<String, double> resultMAp = {};
+    String query(String ploId) => '''
+                SELECT AVG(TotalPlo.PLOpercentage) AS ActualPlo
+                FROM (
+                SELECT (PLO / TotalComark * 100) AS PLOpercentage
+                FROM (
+                        SELECT SUM(DISTINCT e.obtainedMarks) AS PLO, SUM(DISTINCT a.marks) AS TotalCoMark
+                        FROM mainapp_enrollment_t en,
+                            mainapp_evaluation_t e,
+                            mainapp_assessment_t a,
+                            mainapp_co_t c,
+                            mainapp_plo_t p
+                        WHERE en.student_id = ${db.user!.userName}
+                            AND en.enrollmentID = e.enrollment_id
+                            AND e.assessment_id = a.assessmentNo
+                            AND a.co_id = c.id
+                            AND c.plo_id = "$ploId"
+                        GROUP BY en.section_id
+                    ) ploPer
+                ) TotalPlo;
+            ''';
+    for (final Plo plo in db.ploList) {
+      final List<Map<String, Object?>> queryResult =
+          await db.database!.rawQuery(query(plo.plo));
+
+      final double rate = queryResult.first['ActualPlo']! as double;
+
+      resultMAp[plo.plo] = rate;
+    }
+    Logger().i(resultMAp);
+    return resultMAp;
   }
 }

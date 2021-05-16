@@ -19,6 +19,7 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
     StudentEvent event,
   ) async* {
     yield* event.map(load: (e) async* {
+      final Map<String, double> stdPlo = await studentProvider.studentWisePLO();
       final int achieved = await studentProvider.getNumberOfPLOAchieved();
       final int attempted = await studentProvider.getNoOfPLOAttempted();
       final double successRate =
@@ -30,7 +31,8 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
           user: DBProvider.instance().user!,
           lowestPlo: await studentProvider
               .getLowestPLO()
-              .then((value) => "${value.plo}\n(${value.details})"));
+              .then((value) => "${value.plo}\n(${value.details})"),
+          studentPlo: stdPlo);
     });
     // TODO: implement mapEventToState
   }

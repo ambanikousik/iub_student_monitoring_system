@@ -96,13 +96,13 @@ class StudentsPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Text(
-                    'You have pushed the button this many times:',
+                  SizedBox(
+                    height: 50.h,
                   ),
-                  Text(
-                    'counter',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
+                  CustomText(
+                    state.studentPlo.toString(),
+                    maxLine: 10,
+                  )
                 ],
               ),
             ),
