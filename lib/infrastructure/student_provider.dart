@@ -125,17 +125,50 @@ class StudentProvider extends IStudentProvider {
   }
 
   @override
-  void getCourseWisePLO() {
+  Future<void> getCourseWisePLO() async {
     // TODO: implement getCourseWisePLO
   }
 
   @override
-  void getDepartmentWisePLO() {
-    // TODO: implement getDepartmentWisePLO
+  Future<Map<String, double>> getDepartmentWisePLO() async {
+    final Map<String, double> resultMAp = {};
+    String query(String plo, String dept) => '''
+                SELECT AVG(TotalPlo.PLOpercentage) AS ActualPlo
+                FROM (
+                    SELECT (PLO / TotalComark * 100) AS PLOpercentage
+                        FROM (
+                            SELECT SUM(e.obtainedMarks) AS PLO, SUM(a.marks) AS TotalCoMark
+                            FROM mainapp_enrollment_t en,
+                                mainapp_evaluation_t e,
+                                mainapp_assessment_t a,
+                                mainapp_co_t c,
+                                mainapp_plo_t p,
+                                mainapp_student_t st
+                            WHERE st.department_id = "$dept"
+                            AND st.studentID = en.student_id
+                            AND en.enrollmentID = e.enrollment_id
+                            AND e.assessment_id = a.assessmentNo
+                            AND a.co_id = c.id
+                            AND c.plo_id = "$plo"
+                            GROUP BY en.section_id
+                        ) ploPer
+                    ) TotalPlo;
+            ''';
+
+    final String department = await getStdDepartmentId();
+    for (final Plo plo in db.ploList) {
+      final List<Map<String, Object?>> queryResult =
+          await db.database!.rawQuery(query(plo.plo, department));
+      // Logger().i(queryResult);
+      final double rate = queryResult.first['ActualPlo']! as double;
+
+      resultMAp[plo.plo] = double.parse(rate.toStringAsFixed(2));
+    }
+    return resultMAp;
   }
 
   @override
-  void getStudentProgressView() {
+  Future<void> getStudentProgressView() async {
     // TODO: implement getStudentProgressView
   }
 
@@ -168,9 +201,20 @@ class StudentProvider extends IStudentProvider {
 
       final double rate = queryResult.first['ActualPlo']! as double;
 
-      resultMAp[plo.plo] = rate;
+      resultMAp[plo.plo] = double.parse(rate.toStringAsFixed(2));
     }
-    Logger().i(resultMAp);
     return resultMAp;
+  }
+
+  @override
+  Future<String> getStdDepartmentId() async {
+    String query(String studentId) => '''SELECT department_id
+                                      FROM mainapp_student_t
+                                    WHERE studentID = $studentId;''';
+
+    final List<Map<String, Object?>> queryResult =
+        await db.database!.rawQuery(query(db.user!.userName));
+    Logger().i(queryResult);
+    return queryResult.first['department_id']! as String;
   }
 }

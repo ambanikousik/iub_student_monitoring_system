@@ -152,8 +152,14 @@ abstract class LoadStudentData implements StudentEvent {
 class _$StudentStateTearOff {
   const _$StudentStateTearOff();
 
-  _StudentState call(User user, int ploAchieved, int ploAttempted,
-      String lowestPlo, double successRate, Map<String, double> studentPlo) {
+  _StudentState call(
+      User user,
+      int ploAchieved,
+      int ploAttempted,
+      String lowestPlo,
+      double successRate,
+      Map<String, double> studentPlo,
+      Map<String, double> deptPlo) {
     return _StudentState(
       user,
       ploAchieved,
@@ -161,6 +167,7 @@ class _$StudentStateTearOff {
       lowestPlo,
       successRate,
       studentPlo,
+      deptPlo,
     );
   }
 }
@@ -176,6 +183,7 @@ mixin _$StudentState {
   String get lowestPlo => throw _privateConstructorUsedError;
   double get successRate => throw _privateConstructorUsedError;
   Map<String, double> get studentPlo => throw _privateConstructorUsedError;
+  Map<String, double> get deptPlo => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StudentStateCopyWith<StudentState> get copyWith =>
@@ -193,7 +201,8 @@ abstract class $StudentStateCopyWith<$Res> {
       int ploAttempted,
       String lowestPlo,
       double successRate,
-      Map<String, double> studentPlo});
+      Map<String, double> studentPlo,
+      Map<String, double> deptPlo});
 
   $UserCopyWith<$Res> get user;
 }
@@ -214,6 +223,7 @@ class _$StudentStateCopyWithImpl<$Res> implements $StudentStateCopyWith<$Res> {
     Object? lowestPlo = freezed,
     Object? successRate = freezed,
     Object? studentPlo = freezed,
+    Object? deptPlo = freezed,
   }) {
     return _then(_value.copyWith(
       user: user == freezed
@@ -240,6 +250,10 @@ class _$StudentStateCopyWithImpl<$Res> implements $StudentStateCopyWith<$Res> {
           ? _value.studentPlo
           : studentPlo // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
+      deptPlo: deptPlo == freezed
+          ? _value.deptPlo
+          : deptPlo // ignore: cast_nullable_to_non_nullable
+              as Map<String, double>,
     ));
   }
 
@@ -264,7 +278,8 @@ abstract class _$StudentStateCopyWith<$Res>
       int ploAttempted,
       String lowestPlo,
       double successRate,
-      Map<String, double> studentPlo});
+      Map<String, double> studentPlo,
+      Map<String, double> deptPlo});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -288,6 +303,7 @@ class __$StudentStateCopyWithImpl<$Res> extends _$StudentStateCopyWithImpl<$Res>
     Object? lowestPlo = freezed,
     Object? successRate = freezed,
     Object? studentPlo = freezed,
+    Object? deptPlo = freezed,
   }) {
     return _then(_StudentState(
       user == freezed
@@ -314,6 +330,10 @@ class __$StudentStateCopyWithImpl<$Res> extends _$StudentStateCopyWithImpl<$Res>
           ? _value.studentPlo
           : studentPlo // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
+      deptPlo == freezed
+          ? _value.deptPlo
+          : deptPlo // ignore: cast_nullable_to_non_nullable
+              as Map<String, double>,
     ));
   }
 }
@@ -322,7 +342,7 @@ class __$StudentStateCopyWithImpl<$Res> extends _$StudentStateCopyWithImpl<$Res>
 
 class _$_StudentState implements _StudentState {
   const _$_StudentState(this.user, this.ploAchieved, this.ploAttempted,
-      this.lowestPlo, this.successRate, this.studentPlo);
+      this.lowestPlo, this.successRate, this.studentPlo, this.deptPlo);
 
   @override
   final User user;
@@ -336,10 +356,12 @@ class _$_StudentState implements _StudentState {
   final double successRate;
   @override
   final Map<String, double> studentPlo;
+  @override
+  final Map<String, double> deptPlo;
 
   @override
   String toString() {
-    return 'StudentState(user: $user, ploAchieved: $ploAchieved, ploAttempted: $ploAttempted, lowestPlo: $lowestPlo, successRate: $successRate, studentPlo: $studentPlo)';
+    return 'StudentState(user: $user, ploAchieved: $ploAchieved, ploAttempted: $ploAttempted, lowestPlo: $lowestPlo, successRate: $successRate, studentPlo: $studentPlo, deptPlo: $deptPlo)';
   }
 
   @override
@@ -362,7 +384,9 @@ class _$_StudentState implements _StudentState {
                     .equals(other.successRate, successRate)) &&
             (identical(other.studentPlo, studentPlo) ||
                 const DeepCollectionEquality()
-                    .equals(other.studentPlo, studentPlo)));
+                    .equals(other.studentPlo, studentPlo)) &&
+            (identical(other.deptPlo, deptPlo) ||
+                const DeepCollectionEquality().equals(other.deptPlo, deptPlo)));
   }
 
   @override
@@ -373,7 +397,8 @@ class _$_StudentState implements _StudentState {
       const DeepCollectionEquality().hash(ploAttempted) ^
       const DeepCollectionEquality().hash(lowestPlo) ^
       const DeepCollectionEquality().hash(successRate) ^
-      const DeepCollectionEquality().hash(studentPlo);
+      const DeepCollectionEquality().hash(studentPlo) ^
+      const DeepCollectionEquality().hash(deptPlo);
 
   @JsonKey(ignore: true)
   @override
@@ -388,7 +413,8 @@ abstract class _StudentState implements StudentState {
       int ploAttempted,
       String lowestPlo,
       double successRate,
-      Map<String, double> studentPlo) = _$_StudentState;
+      Map<String, double> studentPlo,
+      Map<String, double> deptPlo) = _$_StudentState;
 
   @override
   User get user => throw _privateConstructorUsedError;
@@ -402,6 +428,8 @@ abstract class _StudentState implements StudentState {
   double get successRate => throw _privateConstructorUsedError;
   @override
   Map<String, double> get studentPlo => throw _privateConstructorUsedError;
+  @override
+  Map<String, double> get deptPlo => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$StudentStateCopyWith<_StudentState> get copyWith =>

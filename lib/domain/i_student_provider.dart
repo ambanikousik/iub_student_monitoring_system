@@ -6,7 +6,9 @@ abstract class IStudentProvider {
   Future<Plo> getLowestPLO();
   double getPLOSuccessRate(int achieved, int attempted);
   Future<Map<String, double>> studentWisePLO();
-  void getDepartmentWisePLO();
-  void getStudentProgressView();
-  void getCourseWisePLO();
+  Future<String> getStdDepartmentId();
+
+  Future<Map<String, double>> getDepartmentWisePLO();
+  Future<void> getStudentProgressView();
+  Future<void> getCourseWisePLO();
 }

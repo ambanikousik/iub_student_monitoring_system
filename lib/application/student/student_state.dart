@@ -8,8 +8,9 @@ class StudentState with _$StudentState {
       int ploAttempted,
       String lowestPlo,
       double successRate,
-      Map<String, double> studentPlo) = _StudentState;
+      Map<String, double> studentPlo,
+      Map<String, double> deptPlo) = _StudentState;
 
   factory StudentState.initial() => const StudentState(
-      User(0, 'userName', 'lastName', 'firstName'), 0, 0, 'n/a', 0.0, {});
+      User(0, 'userName', 'lastName', 'firstName'), 0, 0, 'n/a', 0.0, {}, {});
 }

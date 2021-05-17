@@ -19,6 +19,8 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
     StudentEvent event,
   ) async* {
     yield* event.map(load: (e) async* {
+      final Map<String, double> deptPlo =
+          await studentProvider.getDepartmentWisePLO();
       final Map<String, double> stdPlo = await studentProvider.studentWisePLO();
       final int achieved = await studentProvider.getNumberOfPLOAchieved();
       final int attempted = await studentProvider.getNoOfPLOAttempted();
@@ -32,7 +34,8 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
           lowestPlo: await studentProvider
               .getLowestPLO()
               .then((value) => "${value.plo}\n(${value.details})"),
-          studentPlo: stdPlo);
+          studentPlo: stdPlo,
+          deptPlo: deptPlo);
     });
     // TODO: implement mapEventToState
   }

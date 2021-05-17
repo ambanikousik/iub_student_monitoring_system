@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iub_student_monitoring_system/application/student/student_bloc.dart';
+import 'package:iub_student_monitoring_system/presentation/Widgets/bar_chart.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_text.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/info_grid_tile.dart';
 
@@ -99,10 +100,8 @@ class StudentsPage extends StatelessWidget {
                   SizedBox(
                     height: 50.h,
                   ),
-                  CustomText(
-                    state.studentPlo.toString(),
-                    maxLine: 10,
-                  )
+                  BarChart(state.studentPlo, 'Student-wise PLO'),
+                  BarChart(state.deptPlo, 'Deartment-wise PLO')
                 ],
               ),
             ),
