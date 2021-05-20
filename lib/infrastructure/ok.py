@@ -977,3 +977,5 @@ def getNumOfPLOsTaught(faculty_id):
             number = 0
             
     return number
+
+# school mane course

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         child: ScreenUtilInit(
           designSize: const Size(490.9, 1036.4),
           builder: () => MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Students monitoring system',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
