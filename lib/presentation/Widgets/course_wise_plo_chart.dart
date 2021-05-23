@@ -29,7 +29,7 @@ class CourseWisePloChart extends StatelessWidget {
           'name': e.course,
           'type': 'bar',
           'stack': 'total',
-          'label': {'show': true},
+          'label': {'show': false},
           'emphasis': {'focus': 'series'},
           'data': scores
         };

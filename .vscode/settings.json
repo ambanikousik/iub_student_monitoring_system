@@ -1,3 +1,13 @@
 {
-    "python.formatting.provider": "autopep8"
+    "python.formatting.provider": "autopep8",
+    "files.exclude": {
+        "**/.dart_tool": true,
+        "**/.idea": true,
+        "**/.vscode": true,
+        "**/android": true,
+        "**/build": true,
+        "**/ios": true,
+        "**/test": true,
+        "**/web": true
+    }
 }

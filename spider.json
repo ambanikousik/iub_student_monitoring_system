@@ -1,0 +1,36 @@
+{
+  "generate_tests": false,
+  "no_comments": true,
+  "export": true,
+  "use_part_of": false,
+  "package": "resources",
+  "groups": [
+    {
+      "path": "assets/image",
+      "class_name": "Images",
+      "types": [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "gif",
+        "bmp",
+        "wbmp"
+      ]
+    },
+    {
+      "path": "assets/database",
+      "class_name": "DbFiles",
+      "types": [
+        "sqlite3"
+      ]
+    },
+    {
+      "path": "assets/excel",
+      "class_name": "ExcelFiles",
+      "types": [
+        "xlsx"
+      ]
+    }
+  ]
+}

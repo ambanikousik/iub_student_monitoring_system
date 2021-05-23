@@ -12,6 +12,7 @@ import 'package:iub_student_monitoring_system/presentation/Widgets/app_button.da
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_text.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_textfield.dart';
 import 'package:iub_student_monitoring_system/presentation/pages/students_page.dart';
+import 'package:iub_student_monitoring_system/resources/resources.dart';
 import 'package:logger/logger.dart';
 
 class LoginPage extends HookWidget {
@@ -54,7 +55,7 @@ class LoginPage extends HookWidget {
           key: _formKey,
           child: ListView(
             children: [
-              Image.asset('assets/iub_logo.png'),
+              Image.asset(Images.iubLogo),
               Center(
                 child: CustomText(
                   'Welcome to SPM',

@@ -7,6 +7,7 @@ import 'package:iub_student_monitoring_system/presentation/Widgets/course_wise_p
 import 'package:iub_student_monitoring_system/presentation/Widgets/custom_text.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/info_grid_tile.dart';
 import 'package:iub_student_monitoring_system/presentation/Widgets/semester_wise_progress_chart.dart';
+import 'package:iub_student_monitoring_system/resources/resources.dart';
 
 class StudentsPage extends StatelessWidget {
   @override
@@ -24,7 +25,7 @@ class StudentsPage extends StatelessWidget {
             title: Row(
               children: [
                 Image.asset(
-                  'assets/iub_logo.png',
+                  Images.iubLogo,
                   height: 50.h,
                 ),
                 SizedBox(
@@ -51,7 +52,7 @@ class StudentsPage extends StatelessWidget {
                         decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                                image: AssetImage('assets/avatar.png'))),
+                                image: AssetImage(Images.avatar))),
                       ),
                       SizedBox(
                         width: 20.w,
